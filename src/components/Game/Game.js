@@ -6,6 +6,7 @@ import WordInput from '../WordInput/WordInput';
 import Guess from '../Guess/Guess';
 import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
 import EmptyGuess from '../EmptyGuess/EmptyGuess';
+import WordleKeyboard from '../WordleKeyboard/WordleKeyboard';
 
 // Pick a random word on every pageload.
 const answer = sample(WORDS);
@@ -14,6 +15,11 @@ console.info({ answer });
 
 function Game() {
   const [guesses, setGuesses] = useState([]);
+
+  const [word, setWord] = useState('');
+  const handleLetterSelect = (letter) => {
+    setWord((prevWord) => prevWord + letter);
+  };
 
   return (
     <>
@@ -41,6 +47,9 @@ function Game() {
       ) : (
         <WordInput setGuesses={setGuesses} />
       )}
+
+      <p>Selected letters: {word}</p>
+      <WordleKeyboard onLetterSelect={handleLetterSelect} />
     </>
   );
 }
